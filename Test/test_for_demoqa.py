@@ -20,7 +20,7 @@ def test_form():
     browser.element('.react-datepicker__day--031').click()
     browser.element('#subjectsInput').type('Civics').press_enter()
     browser.element('//label[contains(text(), "Sports")]').click()
-    browser.element("#uploadPicture").send_keys(os.path.abspath('picture/cat.jpg'))
+    browser.element("#uploadPicture").send_keys(os.path.abspath('test/picture/cat.jpg'))
     browser.element('#currentAddress').type('Санкт-Петербург')
     browser.element('#state').click()
     browser.element('//*[.="Haryana"]').click()
