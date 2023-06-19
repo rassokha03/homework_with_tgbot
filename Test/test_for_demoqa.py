@@ -3,7 +3,7 @@ import os.path
 from selene import browser, have
 
 def test_form():
-    browser.open('/')
+    browser.open('/automation-practice-form')
 
     #Filling out the form
 
