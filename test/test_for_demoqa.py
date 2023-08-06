@@ -11,7 +11,7 @@ def test_form():
     browser.element('#lastName').type('Иванов')
     browser.element('#userEmail').type('first@mail.com')
     browser.element('//label[contains(text(), "Male")]').click()
-    browser.element('#userNumber').type('1234567890')
+    browser.element('#userNumber').type('123456890')
     browser.element('#dateOfBirthInput').click()
     browser.element('.react-datepicker__year-select').click()
     browser.element('[value="1995"]').click()
