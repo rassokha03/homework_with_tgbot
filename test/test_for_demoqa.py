@@ -1,46 +1,45 @@
-import os.path
+from selene import have
+from demoqa.pages.registration_page import RegistrationPage
 
-from selene import browser, have
 
 def test_form():
-    browser.open('/automation-practice-form')
+    registration_page = RegistrationPage()
+    registration_page.open()
 
-    #Filling out the form
+    (
+        registration_page
+        .fill_first_name('Иван')
+        .fill_last_name('Иванов')
+        .fill_email('first@mail.com')
+        .fill_gender('Male')
+        .fill_number('1234567890')
+        .fill_date('1995', 'May', '31')
+        .fill_subjects('Civics')
+        .fill_hobbies('Sports')
+        .fill_picture('cat.jpg')
+        .fill_adress('Санкт-Петербург')
+        .fill_state('Haryana')
+        .fill_city('Karnal')
+        .submit_form()
+    )
 
-    browser.element('#firstName').type('Иван')
-    browser.element('#lastName').type('Иванов')
-    browser.element('#userEmail').type('first@mail.com')
-    browser.element('//label[contains(text(), "Male")]').click()
-    browser.element('#userNumber').type('1234567890')
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__year-select').click()
-    browser.element('[value="1995"]').click()
-    browser.element('.react-datepicker__month-select').click()
-    browser.element('[value="4"]').click()
-    browser.element('.react-datepicker__day--031').click()
-    browser.element('#subjectsInput').type('Civics').press_enter()
-    browser.element('//label[contains(text(), "Sports")]').click()
-    browser.element("#uploadPicture").send_keys(os.path.abspath('picture/cat.jpg'))
-    browser.element('#currentAddress').type('Санкт-Петербург')
-    browser.element('#state').click()
-    browser.element('//*[.="Haryana"]').click()
-    browser.element('#city').click()
-    browser.element('//*[.="Karnal"]').click()
-    browser.element('#submit').press_enter()
+    registration_page.should_have_text('Thanks for submitting the form')
+    registration_page.registered_user_data.should(
+        have.texts(
+            'Иван Иванов',
+            'firts@mail.com',
+            'Male',
+            '1234567890',
+            '31 May 1995',
+            'Civics',
+            'Sports',
+            'cat.jpg',
+            'Санкт-Петербург',
+            'Karnal Haryana'
+        )
+    )
 
-    #Tests
-
-    browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
-    browser.element('.table-responsive').should(have.text('Иван Иванов'))
-    browser.element('.table-responsive').should(have.text('first@mail.com'))
-    browser.element('.table-responsive').should(have.text('Male'))
-    browser.element('.table-responsive').should(have.text('1234567890'))
-    browser.element('.table-responsive').should(have.text('31 May,1995'))
-    browser.element('.table-responsive').should(have.text('Sports'))
-    browser.element('.table-responsive').should(have.text('cat.jpg'))
-    browser.element('.table-responsive').should(have.text('Санкт-Петербург'))
-    browser.element('.table-responsive').should(have.text('Haryana Karnal'))
-    browser.element('#closeLargeModal').click()
+    registration_page.close()
 
 
 
