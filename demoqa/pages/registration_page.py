@@ -1,9 +1,10 @@
 
-from selene import browser, have
+from selene import browser, have, be
 from demoqa import resources
 
 class RegistrationPage:
-
+    def __init__(self):
+        self.registered_user_data = browser.element('.table').all('td').even
     def open(self):
         browser.open('/automation-practice-form')
 
@@ -67,7 +68,8 @@ class RegistrationPage:
     def close(self):
         browser.element('#closeLargeModal').click()
 
-
+    def should_be_clean(self):
+        browser.element('#firstName').should(be.blank)
 
 
 

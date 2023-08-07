@@ -41,6 +41,7 @@ def test_form():
 
     registration_page.close()
 
+    registration_page.should_be_clean()
 
 
 
