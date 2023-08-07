@@ -27,15 +27,15 @@ def test_form():
     registration_page.registered_user_data.should(
         have.texts(
             'Иван Иванов',
-            'firts@mail.com',
+            'first@mail.com',
             'Male',
             '1234567890',
-            '31 May 1995',
+            '31 May,1995',
             'Civics',
             'Sports',
             'cat.jpg',
             'Санкт-Петербург',
-            'Karnal Haryana'
+            'Haryana Karnal'
         )
     )
 
