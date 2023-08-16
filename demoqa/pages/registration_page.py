@@ -1,79 +1,79 @@
-
-from selene import browser, have, be
+from selene import browser, have
 from demoqa import resources
+from demoqa.models.users import User
+
 
 class RegistrationPage:
     def __init__(self):
-        self.registered_user_data = browser.element('.table').all('td').even
+        self.fist_name = browser.element('#firstName')
+        self.last_name = browser.element('#lastName')
+        self.email = browser.element('#userEmail')
+        self.gender = browser.all('[name=gender]')
+        self.phone_number = browser.element('#userNumber')
+        self.subject = browser.element('#subjectsInput')
+        self.hobbies = browser.all('[for^= hobbies]')
+        self.upload_image = browser.element('#uploadPicture')
+
     def open(self):
         browser.open('/automation-practice-form')
 
-    def fill_first_name(self, value):
-        browser.element('#firstName').type(value)
-        return self
-    def fill_last_name(self, value):
-        browser.element('#lastName').type(value)
-        return self
-    def fill_email(self, value):
-        browser.element('#userEmail').type(value)
+    def register(self, user: User):
+        self.fist_name.type(user.first_name)
+        self.last_name.type(user.last_name)
+        self.email.type(user.email)
+        self.gender.element_by(have.value(user.gender)).element('..').click()
+        self.phone_number.type(user.phone)
+        self.fill_date_of_birth(user.birthday)
+        self.subject.type(user.subjects).press_enter()
+        self.hobbies.element_by(have.text(user.hobby)).element('..').click()
+        self.upload_image.set_value(resources.path(user.image))
+        self.fill_address(user.address)
+        self.fill_state(user.state)
+        self.fill_city(user.city)
+        self.submit()
         return self
 
-    def fill_gender(self, value):
-        browser.element(f'[name=gender][value={value}]+label').click().click()
-        return self
-
-    def fill_number(self, value):
-        browser.element('#userNumber').type(value)
-        return self
-    def fill_date(self, year, month, day):
+    def fill_date_of_birth(self, date):
+        year = date.year
+        month = date.month - 1
+        day = date.strftime('%d')
         browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__month-select').type(month)
-        browser.element('.react-datepicker__year-select').type(year)
-        browser.element(f'.react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)').click()
+        browser.element('.react-datepicker__year-select').click()
+        browser.element(f'.react-datepicker__year-select option[value="{year}"]').click()
+        browser.element('.react-datepicker__month-select').click()
+        browser.element(f'.react-datepicker__month-select option[value="{month}"]').click()
+        browser.element(f'.react-datepicker__day--0{day}').click()
         return self
 
-    def fill_subjects(self, value):
-        browser.element('#subjectsInput').type(value).press_enter()
-        return self
 
-    def fill_hobbies(self, value):
-        browser.all('#hobbiesWrapper label').element_by(have.exact_text(value)).click()
-        return self
-
-    def fill_picture(self, value):
-        browser.element('#uploadPicture').set_value(resources.path(value))
-        return self
-
-    def fill_adress(self, value):
+    def fill_address(self, value):
         browser.element('#currentAddress').type(value)
         return self
 
-    def fill_state(self, value):
+    def fill_state(self, state):
         browser.element('#state').click()
-        browser.all("#state div").element_by(have.exact_text(value)).click()
+        browser.all("#state div").element_by(have.exact_text(state)).click()
         return self
 
-    def fill_city(self, value):
+    def fill_city(self, city):
         browser.element('#city').click()
-        browser.all("#city div").element_by(have.exact_text(value)).click()
-        return self
+        browser.all("#city div").element_by(have.exact_text(city)).click()
 
-    def submit_form(self):
+    def submit(self):
         browser.element('#submit').press_enter()
-        return self
 
-    def should_have_text(self, value):
-        browser.element('#example-modal-sizes-title-lg').should(have.text(value))
-
-    def close(self):
-        browser.element('#closeLargeModal').click()
-
-    def should_be_clean(self):
-        browser.element('#firstName').should(be.blank)
-
-
-
-
-
-
-
+    def should_have_registered(self, user):
+        browser.element('.table').all('td').even.should(have.exact_texts(
+            f'{user.first_name} {user.last_name}',
+            f'{user.email}',
+            f'{user.gender}',
+            f'{user.phone}',
+            '{0} {1},{2}'.format(user.birthday.strftime("%d"),
+                                 user.birthday.strftime("%B"),
+                                 user.birthday.year),
+            f'{user.subjects}',
+            f'{user.hobby}',
+            f'{user.image}',
+            f'{user.address}',
+            f'{user.state} {user.city}'
+        ))
