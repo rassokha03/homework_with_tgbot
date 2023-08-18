@@ -1,8 +1,8 @@
 import datetime
+import allure
 
 from demoqa.pages.registration_page import RegistrationPage
 from demoqa.models.users import User
-
 
 def test_form():
     registration_page = RegistrationPage()
@@ -22,6 +22,10 @@ def test_form():
         city='Karnal'
 
     )
-    registration_page.open()
-    registration_page.register(andrey)
-    registration_page.should_have_registered(andrey)
+
+    with allure.step("Open registration page"):
+        registration_page.open()
+    with allure.step("Fill registration form"):
+        registration_page.register(andrey)
+    with allure.step("Assert registered and registration info correct"):
+        registration_page.should_have_registered(andrey)
