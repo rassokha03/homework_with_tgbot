@@ -3,16 +3,16 @@ import os
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selene import Browser, Config
+from selene import browser
 from dotenv import load_dotenv
 
 from utils import attach
 
-DEFAULT_BROWSER_VERSION = '110.0'
+DEFAULT_BROWSER_VERSION = '100.0'
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser_version', default='110.0')
+    parser.addoption('--browser_version', default='100.0')
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -41,7 +41,7 @@ def setup_browser(request):
         options=options
     )
 
-    browser = Browser(Config(driver=driver))
+    browser.config.driver = driver
 
     yield browser
 
