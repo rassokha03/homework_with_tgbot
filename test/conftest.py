@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 
 from utils import attach
 
-DEFAULT_BROWSER_VERSION = '100.0'
+DEFAULT_BROWSER_VERSION = '116.0'
 
 
 def pytest_addoption(parser):
-    parser.addoption('--browser_version', default='100.0')
+    parser.addoption('--browser_version', default='116.0')
 
 
 @pytest.fixture(scope='session', autouse=True)
