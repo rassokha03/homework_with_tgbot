@@ -41,7 +41,7 @@ def setup_browser(request):
         options=options
     )
 
-    browser = Browser(Config(driver))
+    browser = Browser(Config(driver=driver))
 
     yield browser
 
