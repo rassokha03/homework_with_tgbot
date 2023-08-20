@@ -22,9 +22,6 @@ def load_env():
 
 @pytest.fixture(scope='function', autouse=False)
 def setup_browser(request):
-    browser.config.window_height = 600
-    browser.config.window_width = 800
-
     browser_version = request.config.getoption('--browser_version') or DEFAULT_BROWSER_VERSION
     selenoid_capabilities = {
         'browserName': 'chrome',
@@ -37,18 +34,25 @@ def setup_browser(request):
     options = Options()
     options.capabilities.update(selenoid_capabilities)
 
-    login = os.getenv('LOGIN')
-    password = os.getenv('PASSWORD')
+    #login = os.getenv('LOGIN')
+    #password = os.getenv('PASSWORD')
     driver = webdriver.Remote(
-        command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
+        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
     )
+    browser = Browser(Config(driver))
+
+    #driver = webdriver.Remote(
+        #command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
+        #options=options
+    #)
 
     #browser = Browser(Config(driver))
 
-    browser.config.driver = driver
-    #browser.config.window_height = 1200
-    #browser.config.window_width = 1920
+    #browser.config.driver = driver
+
+    browser.config.window_height = 1200
+    browser.config.window_width = 1920
     #browser.config.base_url = 'https://demoqa.com'
 
     yield browser
