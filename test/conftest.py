@@ -22,6 +22,9 @@ def load_env():
 
 @pytest.fixture(scope='function', autouse=False)
 def setup_browser(request):
+    browser.config.window_height = 600
+    browser.config.window_width = 800
+
     browser_version = request.config.getoption('--browser_version') or DEFAULT_BROWSER_VERSION
     selenoid_capabilities = {
         'browserName': 'chrome',
@@ -44,9 +47,9 @@ def setup_browser(request):
     #browser = Browser(Config(driver))
 
     browser.config.driver = driver
-    browser.config.window_height = 1080
-    browser.config.window_width = 1920
-    browser.config.base_url = 'https://demoqa.com'
+    #browser.config.window_height = 1200
+    #browser.config.window_width = 1920
+    #browser.config.base_url = 'https://demoqa.com'
 
     yield browser
 

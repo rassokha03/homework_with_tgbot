@@ -1,4 +1,4 @@
-from selene import browser, have
+from selene import browser, have, command
 from demoqa import resources
 from demoqa.models.users import User
 
@@ -15,7 +15,7 @@ class RegistrationPage:
         self.upload_image = browser.element('#uploadPicture')
 
     def open(self):
-        browser.open('/automation-practice-form')
+        browser.open('https://demoqa.com/automation-practice-form')
 
     def register(self, user: User):
         self.fist_name.type(user.first_name)
@@ -51,8 +51,10 @@ class RegistrationPage:
         return self
 
     def fill_state(self, state):
-        browser.element('#state').click()
-        browser.all("#state div").element_by(have.exact_text(state)).click()
+        browser.element('#state').perform(command.js.scroll_into_view).click()
+        browser.all("[id^=react-select][id*=option]").element_by(have.exact_text(state)).click()
+       # browser.element('#state').click()
+        #browser.all("#state div").element_by(have.exact_text(state)).click()
         return self
 
     def fill_city(self, city):
