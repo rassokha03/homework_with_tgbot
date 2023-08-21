@@ -1,6 +1,10 @@
-from selene import browser, have, command
+#from selene import browser, have, command
 from demoqa import resources
 from demoqa.models.users import User
+
+from selene.core import command
+from selene.support.conditions import have
+from selene.support.shared import browser
 
 
 class RegistrationPage:
