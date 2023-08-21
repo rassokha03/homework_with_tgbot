@@ -4,6 +4,7 @@ import allure
 from demoqa.pages.registration_page import RegistrationPage
 from demoqa.models.users import User
 
+@allure.title('Successful fill form')
 def test_form():
     registration_page = RegistrationPage()
 
@@ -22,6 +23,7 @@ def test_form():
         city='Karnal'
 
     )
+
 
     with allure.step("Open registration page"):
         registration_page.open()
