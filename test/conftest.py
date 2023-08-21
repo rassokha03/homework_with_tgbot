@@ -21,7 +21,7 @@ def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='function', autouse=False)
+@pytest.fixture(scope='function') #autouse=False)
 def setup_browser(request):
     browser_version = request.config.getoption('--browser_version') or DEFAULT_BROWSER_VERSION
     selenoid_capabilities = {
