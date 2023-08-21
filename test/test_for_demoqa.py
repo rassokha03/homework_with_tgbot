@@ -5,7 +5,7 @@ from demoqa.pages.registration_page import RegistrationPage
 from demoqa.models.users import User
 
 @allure.title('Successful fill form')
-def test_form():
+def test_form(setup_browser):
     registration_page = RegistrationPage()
 
     andrey = User(
