@@ -8,7 +8,7 @@
     "language": "en",
     "allureFolder": "allure-report/",
     "enableChart": true
-  }
+  },
   "telegram": {
     "token": "6670395983:AAGanvjnFcgopAvxirDxkGB5-HciiCs7W8A",
     "chat": "-1001888738881",
