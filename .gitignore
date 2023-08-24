@@ -3,3 +3,5 @@
 /.pytest_cache/
 /test/.pytest_cache/
 demoqa/models/__pycache__/
+test/__pycache__
+__pycache__/
