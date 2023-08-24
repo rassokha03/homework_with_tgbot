@@ -2,3 +2,4 @@
 .idea/
 /.pytest_cache/
 /test/.pytest_cache/
+demoqa/models/__pycache__/
