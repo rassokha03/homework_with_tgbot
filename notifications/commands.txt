@@ -1,0 +1,15 @@
+curl -X POST
+     -H 'Content-Type: application/json'
+     -d '{"chat_id": "-1001888738881", "text": "This is a test from curl", "disable_notification": true}'
+     https://api.telegram.org/bot6670395983:AAGanvjnFcgopAvxirDxkGB5-HciiCs7W8A/sendMessage
+
+
+     token: 6670395983:AAGanvjnFcgopAvxirDxkGB5-HciiCs7W8A
+       chat id: -1001888738881
+
+
+
+     https://api.telegram.org/bot6670395983:AAGanvjnFcgopAvxirDxkGB5-HciiCs7W8A/getUpdates
+
+
+     curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "-1001888738881", "text": "This is a test from curl", "disable_notification": true}' https://api.telegram.org/bot6670395983:AAGanvjnFcgopAvxirDxkGB5-HciiCs7W8A/sendMessage
